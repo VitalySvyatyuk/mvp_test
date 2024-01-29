@@ -21,6 +21,16 @@ class UserSerializer(serializers.ModelSerializer):
         return value
 
 
+class UserCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'role', 'deposit']
+
+    def create(self, validated_data):
+        instance = User.objects.create_user(**validated_data)
+        return instance
+
+
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product

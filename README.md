@@ -13,6 +13,8 @@ python3 manage.py runserver
 ```
 http://localhost:8000/api/swagger/
 ```
+With swagger, you have to create Seller, Buyer and a Product.
+
 ### Tests
 ```
 python3 -m pytest

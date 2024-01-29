@@ -7,7 +7,8 @@ from rest_framework.response import Response
 
 from api.models import Product, User
 from api.permissions import BuyerPermission, SellerPermission, UserPermission
-from api.serializers import BuyProductSerializer, ProductGetSerializer, ProductSerializer, UserSerializer
+from api.serializers import (BuyProductSerializer, ProductGetSerializer, ProductSerializer, UserCreateSerializer,
+                             UserSerializer)
 
 
 class LoginView(KnoxLoginView):
@@ -20,7 +21,11 @@ class UserViewSet(mixins.CreateModelMixin,
                   mixins.DestroyModelMixin,
                   viewsets.GenericViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return UserCreateSerializer
+        return UserSerializer
 
     def get_permissions(self):
         if self.action in ['destroy', 'list']:
